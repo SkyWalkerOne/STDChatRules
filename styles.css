@@ -1,0 +1,124 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header */
+header {
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    color: #fff;
+    padding: 50px 0;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.2em;
+}
+
+/* Rules Section */
+.rules {
+    background-color: #fff;
+    margin: 30px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.rules h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+    color: #6a11cb;
+    text-align: center;
+}
+
+.rule-category {
+    margin-bottom: 20px;
+}
+
+.rule-category h3 {
+    font-size: 1.5em;
+    color: #2575fc;
+    margin-bottom: 10px;
+}
+
+.rule-category ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.rule-category li {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+    padding-left: 10px;
+    position: relative;
+}
+
+.rule-category li::before {
+    content: \"\u2022\";
+    position: absolute;
+    left: 0;
+    color: #6a11cb;
+    font-size: 1.5em;
+}
+
+/* Note */
+.note {
+    font-size: 0.9em;
+    color: #777;
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+footer p {
+    font-size: 0.9em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2em;
+    }
+
+    .rules h2 {
+        font-size: 1.5em;
+    }
+
+    .rule-category h3 {
+        font-size: 1.2em;
+    }
+
+    .rule-category li {
+        font-size: 1em;
+    }
+}
