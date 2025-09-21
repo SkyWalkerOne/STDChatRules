@@ -1,170 +1,337 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Правила группы</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Правила сообщества — 21.09.2025</title>
   <style>
-    :root {
-      --accent-color: #4a5de2; /* Синий с фиолетовым оттенком */
-      --copyright-bg: #222;
+    :root{
+      --bg:#0f1720; --card:#0b1220; --muted:#98a0b3; --accent:#6ee7b7; --glass: rgba(255,255,255,0.03);
+      --maxw:1100px; --gap:18px; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:#0b1220;color:#e6eef8}
+    a{color:var(--accent);text-decoration:none}
+
+    .wrap{max-width:var(--maxw);margin:28px auto;padding:18px;display:grid;grid-template-columns:340px 1fr;gap:var(--gap)}
+    header{grid-column:1/-1;display:flex;align-items:center;gap:12px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#60a5fa);display:grid;place-items:center;color:#032; font-weight:700}
+    h1{margin:0;font-size:20px}
+    .meta{color:var(--muted);font-size:13px}
+
+    .logo {
+      width: 55px;             /* фиксированный размер под иконку */
+      height: 55px;
+      border-radius: 12px;     /* скругленные углы */
+      overflow: hidden;        /* обрезаем картинку по форме */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111;        /* фон под картинку, если PNG прозрачный */
     }
 
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #fff;
-      color: #000;
-      line-height: 1.6;
-    }
-
-    .header {
-      background: linear-gradient(135deg, #4a5de2, #6a4ae2);
-      color: white;
-      text-align: center;
-      padding: 1.2rem 1rem;
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-
-    .container {
-      padding: 1rem;
-    }
-
-    .accordion {
-      border: 2px solid var(--accent-color);
-      border-radius: 0;
-      margin-bottom: 1rem;
-    }
-
-    .accordion-header {
-      background-color: #f8f8f8;
-      padding: 0.8rem 1rem;
-      cursor: pointer;
-      font-weight: bold;
-      position: relative;
-    }
-
-    .accordion-header::after {
-      content: "▼";
-      position: absolute;
-      right: 1rem;
-      transition: transform 0.3s;
-    }
-
-    .accordion.active .accordion-header::after {
-      transform: rotate(-180deg);
-    }
-
-    .accordion-content {
-      display: none;
-      padding: 1rem;
-      background-color: #fff;
-      border-top: 1px solid var(--accent-color);
-    }
-
-    .accordion.active .accordion-content {
+    .logo img {
+      width: 100%;             /* вписываем картинку */
+      height: 100%;
+      object-fit: cover;       /* чтобы картинка занимала квадрат без искажений */
       display: block;
     }
 
-    .rules-section {
-      margin-bottom: 2rem;
+    /* Sidebar */
+    nav{background:var(--card);padding:14px;border-radius:12px;height:calc(100vh - 140px);position:sticky;top:20px;overflow:auto}
+    .searchbox{display:flex;gap:8px;margin-bottom:12px}
+    .searchbox input{flex:1;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit}
+    .btn{padding:10px 12px;border-radius:10px;border:none;background:rgba(255,255,255,0.04);cursor:pointer}
+    .sections{display:flex;flex-direction:column;gap:6px}
+    .sections a{display:block;padding:8px 10px;border-radius:8px;color:var(--muted);font-size:14px}
+    .sections a.active{background:linear-gradient(90deg, rgba(110,231,183,0.08), rgba(96,165,250,0.04));color:var(--accent)}
+
+    /* Content */
+    main{padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:12px;min-height:60vh}
+    .controls{display:flex;gap:8px;align-items:center;margin-bottom:14px}
+    .toc{display:flex;gap:10px;flex-wrap:wrap}
+    .toc a{font-size:13px;color:var(--muted);background:rgba(255,255,255,0.02);padding:6px 8px;border-radius:8px}
+    article{line-height:1.6}
+    h2{margin:16px 0 8px;padding-top:6px}
+    h3{margin:8px 0 6px;color:var(--accent)}
+    p, li{color:#d7e6ff}
+    .card{background:rgba(255,255,255,0.01);padding:14px;border-radius:10px;margin-bottom:12px}
+    ul{margin:6px 0 12px 20px}
+
+    /* Highlight */
+    mark{background:linear-gradient(90deg,#ffd86b55,#ff7ab355);color:#04111a;padding:0 4px;border-radius:3px}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .wrap{grid-template-columns:1fr;padding:16px}
+      nav{position:relative;height:auto;order:2}
+      header{flex-direction:column;align-items:flex-start;gap:8px}
+      .logo{width:44px;height:44px}
     }
 
-    .rules-section h3 {
-      margin-top: 1.5rem;
-      font-size: 1.2rem;
-    }
+    /* Mobile hamburger */
+    .hamburger{display:none}
+    @media (max-width:900px){.hamburger{display:inline-flex}}
 
-    .footer {
-      margin-top: 4rem;
-      background-color: var(--copyright-bg);
-      color: white;
-      text-align: center;
-      padding: 1rem 0;
-      font-size: 0.9rem;
-    }
+    /* small touches */
+    .muted{color:var(--muted)}
+    .section-title{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .count{font-size:13px;color:var(--muted)}
+    .hidden{display:none}
+
+    /* print */
+    @media print{body{background:white;color:black}nav, .controls, .toc, .searchbox{display:none} .wrap{max-width:100%} }
   </style>
 </head>
 <body>
-  <div class="header">Правила группы</div>
-  <div class="container">
-
-    <!-- Предисловие -->
-    <div class="accordion" id="intro">
-      <div class="accordion-header">Предисловие</div>
-      <div class="accordion-content">
-        <p>Данный свод правил создан для обеспечения комфортного и безопасного общения всех участников группы. Мы стремились учесть разнообразные ситуации, которые могут возникнуть, и заложить основы для уважительного взаимодействия. Следование этим правилам помогает сохранить дружелюбную атмосферу, предотвращать конфликты и защищать участников от нежелательного контента. Наше главное желание — чтобы группа оставалась местом, где каждый чувствует себя комфортно и может свободно общаться, соблюдая базовые нормы поведения.</p>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo">
+          <img src="logo.png" alt="Логотип">
+        </div>
+        <div>
+          <h1>ПРАВИЛА ПОВЕДЕНИЯ В СООБЩЕСТВЕ</h1>
+          <div class="meta">Обновлено: 21.09.2025</div>
+        </div>
       </div>
-    </div>
-
-    <!-- Основные правила -->
-    <div class="rules-section">
-      <h2><p style="text-align: center; color: #8000ff;">Запреты и наказания:</p></h2>
-
-      <p style="color: #157ee6;"><strong>Раздел 1 (предусматривается варн/предупреждение, если участник...)</strong></p>
-      <ul>
-        <li><strong>1.1</strong> Оскорбил другого участника группы</li>
-        <li><strong>1.2</strong> Отправил ложную жалобу (репорт) на рассмотрение модераторам</li>
-        <li><strong>1.3</strong> Продвигал сторонние ресурсы (не распространяется на ролики и прочие медиа)</li>
-      </ul>
-
-      <p style="color: #157ee6;"><strong>Раздел 2 (предусматривает мут/обеззвучивание на 12 часов, если участник...)</strong></p>
-      <ul>
-        <li><strong>2.1</strong> Спамил/флудил*¹ любыми медиа или текстовыми сообщениями</li>
-        <li><strong>2.2</strong> Токсично/неадекватно вёл себя в адрес других участников</li>
-      </ul>
-
-      <p style="color: #157ee6;"><strong>Раздел 3 (предусматривает бессрочный бан, если участник...)</strong></p>
-      <ul>
-        <li><strong>3.1</strong> Отправлял в чат NSFW*² медиа/текстовые сообщения или ссылки на подобные материалы</li>
-        <li><strong>3.2</strong> Призывал к насильственным действиям, травле, побуждал к самоповреждению или суициду кого-либо, а также демонстрировал или поощрял потенциально опасные для жизни действия</li>
-        <li><strong>3.3</strong> Дискриминировал другого участника или неопределённую группу участников на фоне расы, религии, личных взглядов и т.д.</li>
-        <li><strong>3.4</strong> Раскрывал личную информацию участника или любого другого человека без их согласия</li>
-        <li><strong>3.5</strong> Упоминал/демонстрировал символику, высказывания, связанные с действующими вооруженными конфликтами, включая государственные символы воюющих стран, изображения военной техники, военных действий и т.п.</li>
-        <li><strong>3.6</strong> Использовал экстремистские*³ символы/высказывания</li>
-        <li><strong>3.7</strong> Отправлял файлы/ссылки на скачивание файлов нелецензинного/вредоносного ПО, а также демонстрировал использование взломанных версий игр или читов</li>
-        <li><strong>3.8</strong> Рекламировал скам-проекты, онлайн-казино, вебкам-услуги или отправлял нежелательные рассылки, включая приглашения для набора в команду или другие рекламные спам сообщения</li>
-      </ul>
-    </div>
-
-    <!-- Примечания -->
-    <div class="accordion" id="notes">
-      <div class="accordion-header">Примечания</div>
-      <div class="accordion-content">
-        <p><strong>1. </strong>Администрация группы оставляет за собой право выдавать наказания по личному усмотрению или по общему решению команды администрации в случаях, не предусмотренных правилами, но явно нарушающих атмосферу группы, здравый смысл или угрожающих безопасности её участников.</p>
-        <p><strong>2. </strong>Все вышеуказанные правила также распространяются на аватарку и никнейм участника. Администрация может попросить изменить аватарку или никнейм в случае их несоответствия установленным нормам(пункты 3.5; 3.6).</p>
-        <p><strong>3. </strong>Использование матерных слов не рекомендуется. В случае неадекватного злоупотребления нецензурной лексикой участник может получить мут на ограниченное время.</p>
-        <p><strong>4. </strong>Обход наказания с использованием второго аккаунта запрещён. В случае наличия достаточных доказательств того, что заблокированный или ограниченный в правах участник использует другой аккаунт для обхода наказания, к нему будут применены аналогичные меры, соответствующие основному наказанию.</p>
-        <p><strong>5. </strong>Модераторы и администраторы группы также обязаны соблюдать базовые нормы поведения и придерживаться правил, установленных для всех участников. Статус администратора или модератора не дает права игнорировать или нарушать данные правила, а также использовать свои полномочия во вред атмосфере группы или её участникам. Если вы заметили нарушение правил или превышение полномочий членом администрации, обратитесь к старшему администратору, совладельцу или владельцу чата(разработчику). Также можете обратиться к ним по дополнительным вопросам относительно правил группы.</p>
-        <p><strong>6. </strong>Участники могут подать апелляцию на наказание, обратившись к старшему администратору, совладельцу или владельцу группы. Апелляция должна быть чётко сформулированной и содержать описание ситуации с возможными доказательствами. Решение по апелляции принимается индивидуально и является окончательным.</p>
+      <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+        <button class="btn" id="printBtn">Печать</button>
+        <button class="btn" id="topBtn">Вверх</button>
       </div>
-    </div>
+    </header>
 
-    <!-- Сноски -->
-    <div class="accordion" id="footnotes">
-      <div class="accordion-header">Сноски</div>
-      <div class="accordion-content">
-        <p><strong>*1)</strong> <strong>Спам/флуд</strong> - это нежелательные, массовые сообщения или материалы, которые могут включать в себя рекламу, мошенническую информацию, бесполезный или повторяющийся контент.</p>
-        <p><strong>*2)</strong> <strong>"NSFW"</strong> означает <strong>"Not Safe For Work"</strong> и используется для обозначения контента, который не рекомендуется для просмотра на рабочем месте из-за его вульгарности, сексуальности или непристойного характера.</p>
-        <p><strong>*3)</strong> <strong>Экстремизм</strong> - это устойчивая тенденция к принятию и поддержке экстремистских идей, которые могут включать в себя призывы к насилию, ненависть к определенным группам людей, распространение террористической идеологии или другие формы радикального поведения.</p>
+    <nav aria-label="Навигация по разделам">
+      <div class="searchbox">
+        <input id="sideSearch" placeholder="Поиск по правилам — нажмите Enter" aria-label="Поиск по правилам" />
+        <button class="btn" id="clearSearch">×</button>
       </div>
-    </div>
+      <div class="sections" id="navList">
+        <a href="#intro" data-target="intro" class="active">Введение</a>
+        <a href="#r1" data-target="r1">Раздел 1: Опасный контент</a>
+        <a href="#r2" data-target="r2">Раздел 2: Экстремистский контент</a>
+        <a href="#r3" data-target="r3">Раздел 3: Военно-политически направленный контент</a>
+        <a href="#r4" data-target="r4">Раздел 4: Рискованный контент</a>
+        <a href="#r5" data-target="r5">Раздел 5: Конфликты</a>
+        <a href="#r6" data-target="r6">Раздел 6: Недобросовестный контент</a>
+        <a href="#r7" data-target="r7">Раздел 7: Нарушение конфиденциальности</a>
+        <a href="#r8" data-target="r8">Раздел 8: Цифровая безопасность / авторские права</a>
+      </div>
+    </nav>
 
+    <main>
+      <div class="controls">
+        <div class="toc" aria-hidden>
+          <a href="#r1">1</a>
+          <a href="#r2">2</a>
+          <a href="#r3">3</a>
+          <a href="#r4">4</a>
+          <a href="#r5">5</a>
+          <a href="#r6">6</a>
+          <a href="#r7">7</a>
+          <a href="#r8">8</a>
+        </div>
+        <div style="margin-left:auto;color:var(--muted);font-size:13px">Поиск поддерживает подсветку совпадений и навигацию по разделам</div>
+      </div>
+
+      <article id="content" role="article">
+        <section id="intro" class="card">
+          <div class="section-title"><strong>ПРАВИЛА ПОВЕДЕНИЯ В СООБЩЕСТВЕ / 21.09.2025</strong><span class="count muted">Последнее обновление: 21.09.2025</span></div>
+          <p>Администратор при выдаче наказания участнику обязан указать раздел, в котором было нарушено правило, подпункт указывать необязательно. Можно указать номер раздела или название раздела.</p>
+          <p>Администратор в праве выдать предупреждение за ложный вызов.</p>
+        </section>
+
+        <section id="r1" class="card">
+          <h2>Раздел 1: Опасный контент (18+, NSFW, опасные действия)</h2>
+          <p><strong>Запрещено размещать или продвигать:</strong></p>
+          <ul>
+            <li>1.1 Контент, который может привести к физическому, материальному или психологическому вреду себе или другим.</li>
+            <li>1.2 Любой порнографический контент, включая оголенное тело и непристойные описания.</li>
+            <li>1.3 Шокирующий или отталкивающий контент, вызывающий дискомфорт или панику.</li>
+          </ul>
+          <p><strong>Наказание:</strong> Перманентный бан.</p>
+        </section>
+
+        <section id="r2" class="card">
+          <h2>Раздел 2: Экстремистский контент (Нацизм, терроризм, радикальные действия)</h2>
+          <p><strong>Запрещено размещать или продвигать:</strong></p>
+          <ul>
+            <li>2.1 Символику, лозунги или материалы, связанные с нацизмом и пропагандой фашизма.</li>
+            <li>2.2 Контент, оправдывающий или призывающий к терроризму.</li>
+            <li>2.3 Радикальные высказывания или материалы, направленные на разжигание ненависти и вражды.</li>
+            <li>2.4 Упоминания, реклама или восхваление террористических и экстремистских организаций.</li>
+            <li>2.5 Публикация или героизация личностей, связанных с терроризмом, нацизмом или экстремизмом.</li>
+          </ul>
+          <p><strong>Наказание:</strong> Перманентный бан.</p>
+        </section>
+
+        <section id="r3" class="card">
+          <h2>Раздел 3: Военно-политически направленный контент (Войны, политические события и лица)</h2>
+          <p><strong>Запрещено размещать или продвигать:</strong></p>
+          <ul>
+            <li>3.1 Контент, связанный с пропагандой войны или военных действий.</li>
+            <li>3.2 Политическую агитацию, включая поддержку партий, движений или политических лидеров.</li>
+            <li>3.3 Материалы, разжигающие политическую вражду или провоцирующие конфликты между пользователями.</li>
+            <li>3.4 Публикации о военных или политических лидерах в формате восхваления, оскорбления или демонизации.</li>
+            <li>3.5 Любые мемы, изображения и тексты, направленные на политическую пропаганду.</li>
+          </ul>
+          <p><strong>Наказание:</strong> Перманентный бан.</p>
+        </section>
+
+        <section id="r4" class="card">
+          <h2>Раздел 4: Рискованный контент (Скам, азартные игры, ставки на спорт)</h2>
+          <p><strong>Запрещено размещать или продвигать:</strong></p>
+          <ul>
+            <li>4.1 Скам-сайты, мошеннические схемы и обман пользователей.</li>
+            <li>4.2 Контент, связанный с азартными играми, казино и слотами.</li>
+            <li>4.3 Рекламу или обсуждение ставок на спорт и букмекерских контор.</li>
+            <li>4.4 Финансовые пирамиды, сомнительные инвестиции и «быстрый заработок».</li>
+            <li>4.5 Криптоскам, фейковые трейдинговые схемы, псевдо-биржи и мошеннические “сигналы”.</li>
+          </ul>
+          <p><strong>Наказание:</strong> Перманентный бан.</p>
+        </section>
+
+        <section id="r5" class="card">
+          <h2>Раздел 5: Конфликты (Унижение достоинства, оскорбления, провокации, манипуляции)</h2>
+          <p><strong>Запрещено размещать или продвигать любое поведение и материалы, которые направлены на унижение, оскорбление, провокацию, манипуляцию или организацию преследования участников.</strong></p>
+          <ul>
+            <li>5.1 Прямые оскорбления и уничижительные высказывания - ругань, мат, крики, переход на личности в адрес конкретного пользователя.</li>
+            <li>5.2 Целенаправленное унижение достоинства - публичное высмеивание внешности, пола, ориентации, психического состояния, инвалидности, социального положения конкретного человека с целью унизить.</li>
+            <li>5.3 Сексистские / сексуальные оскорбления и харассмент - нежелательные сексуальные комментарии, неприемлемые шутки или предложения в сторону конкретного человека.</li>
+            <li>5.4 Провокации и baiting - намеренные сообщения, цель которых - спровоцировать эмоциональную ссору, переход собеседника на оскорбления или массовую эскалацию.</li>
+            <li>5.5 Троллинг с целью травли - повторные провокационные посты, флейм, целенаправленное удержание конфликта.</li>
+            <li>5.6 Координированные атаки / brigading / mobbing - сбор групп для коллективного нападения, массовые дофолловы, массовые упоминания с целью задеть человека.</li>
+            <li>5.8 Имперсонация и создание «sockpuppet» - аккаунтов с целью троллинга, манипуляции или обхода блокировок.</li>
+            <li>5.9 Манипуляции (gaslighting, ложные обвинения, фрейминг) - сознательное искажение фактов, лживые обвинения, попытки выставить жертву виновной.</li>
+            <li>5.10 Шантаж, вымогательство, угрозы - прямые угрозы причинить вред, шантаж интимными данными, угрозы физической расправы.</li>
+            <li>5.12 Целенаправленное унижение групп пользователей (не обязательно защищенных категорий) - постоянное принижение, оскорбления и травля любой выделенной группы внутри сообщества.</li>
+            <li>5.13 Провокационные мемы/изображения/видео, направленные на конкретного человека - любые визуальные материалы, используемые для оскорбления или преследования.</li>
+            <li>5.14 Навязывание публичных «экзекуций» - призывы к публичному осуждению, бойкоту, массовому остракизму без объективных оснований.</li>
+            <li>5.15 Подстрекательство и поощрение самоповреждения у другого человека (включая «помоги ему покончить» и т.п.).</li>
+          </ul>
+          <p>Администратор в праве сам выбрать меру пресечения в зависимости от последствий нарушения. Можно выбрать между такими вариантами: перманентный бан, обеззвучивание на любой промежуток времени, выдача предупреждения.</p>
+          <p>В случае, если администратор не способен принять собственное решение, рекомендуется выдать перманентный бан, а затем обратиться за консультацией к любому старшему админу.</p>
+        </section>
+
+        <section id="r6" class="card">
+          <h2>Раздел 6: Недобросовестный контент (Спам/Флуд/Реклама)</h2>
+          <p><strong>Запрещено размещать или продвигать:</strong></p>
+          <ul>
+            <li>6.1 Массовые одинаковые или бессмысленные сообщения (флуд).</li>
+            <li>6.2 Автоматизированные или ботовые рассылки (спам).</li>
+            <li>6.3 Рекламу сторонних ресурсов, товаров и услуг без разрешения администрации.
+              <div class="muted" style="margin-top:6px">Исключение: репост интересных видео или материалов без умысла продвигать автора/сервис разрешен.</div>
+            </li>
+            <li>6.4 Ссылки на подозрительные сайты или вредоносный софт под видом рекламы.</li>
+            <li>6.5 Навязчивое продвижение собственных проектов в несоответствующих темах.</li>
+          </ul>
+          <p><strong>Наказание:</strong> Перманентный бан или обеззвучивание по усмотрению администратора</p>
+        </section>
+
+        <section id="r7" class="card">
+          <h2>Раздел 7: Нарушение конфиденциальности (Публикация личных данных, деанон)</h2>
+          <p><strong>Запрещено размещать или продвигать:</strong></p>
+          <ul>
+            <li>7.1 Любые персональные данные пользователей без их согласия (имя, адрес, телефон, соцсети, фото и т.п.).</li>
+            <li>7.2 Деанонимизацию участников, раскрытие их реальной личности в чате или публично.</li>
+            <li>7.3 Публикацию приватных сообщений, скриншотов или переписок без согласия участников.</li>
+            <li>7.4 Любой контент, направленный на преследование или угрозы конкретным лицам через раскрытие их данных.</li>
+          </ul>
+          <p><strong>Наказание:</strong> Перманентный бан.</p>
+        </section>
+
+        <section id="r8" class="card">
+          <h2>Раздел 8: Контент, нарушающий цифровую безопасность или авторские права (Вредоносные файлы или ссылки)</h2>
+          <p><strong>Запрещено размещать или продвигать:</strong></p>
+          <ul>
+            <li>8.1 Вредоносные файлы, вирусы, трояны, шпионское ПО или любые программы, способные нанести вред устройствам пользователей.</li>
+            <li>8.2 Ссылки на сайты с вредоносным контентом или фишинговые ресурсы.</li>
+            <li>8.3 Контент, нарушающий авторские права, включая пиратские копии игр, программ, фильмов, музыки, книг и другого защищенного материала.</li>
+            <li>8.4 Руководства или инструкции по взлому, взлому аккаунтов, обходу систем защиты или краже данных.</li>
+          </ul>
+          <p><strong>Наказание:</strong> Перманентный бан.</p>
+        </section>
+
+      </article>
+    </main>
   </div>
 
-  <!-- Футер -->
-  <div class="footer">
-    © 2025 SkyTechDev. Все права защищены.
-  </div>
-
-  <!-- JavaScript для аккордеонов -->
   <script>
-    document.querySelectorAll('.accordion').forEach((accordion) => {
-      accordion.querySelector('.accordion-header').addEventListener('click', () => {
-        accordion.classList.toggle('active');
-      });
+    // Smooth scroll & active nav
+    document.querySelectorAll('nav .sections a').forEach(a=>{
+      a.addEventListener('click', e=>{
+        e.preventDefault(); const id = a.getAttribute('href').slice(1); document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+        document.querySelectorAll('nav .sections a').forEach(x=>x.classList.remove('active')); a.classList.add('active');
+      })
     });
+
+    // Top, print, theme
+    document.getElementById('topBtn').addEventListener('click', ()=>window.scrollTo({top:0,behavior:'smooth'}));
+    document.getElementById('printBtn').addEventListener('click', ()=>window.print());
+    document.getElementById('toggleTheme').addEventListener('click', ()=>{
+      document.documentElement.classList.toggle('light');
+      if(document.documentElement.classList.contains('light')){
+        document.body.style.background='linear-gradient(180deg,#f6fbff,#e9f2ff)';document.body.style.color='#04111a'
+      } else {document.body.style.background='linear-gradient(180deg,#071021 0%, #071827 60%)';document.body.style.color='#e6eef8'}
+    });
+
+    // Search & highlight
+    const sideSearch = document.getElementById('sideSearch');
+    const clearBtn = document.getElementById('clearSearch');
+    const content = document.getElementById('content');
+
+    function escapeHtml(s){ return s.replace(/[&<>\"]/g, c=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' })[c]); }
+
+    function removeHighlights(){ const marks = content.querySelectorAll('mark'); marks.forEach(m=>{ m.replaceWith(document.createTextNode(m.textContent)); }); }
+
+    function doSearch(term){ removeHighlights(); if(!term) return; const re = new RegExp(term.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'ig');
+      let first = null; let total=0;
+      // search through text nodes
+      const walker = document.createTreeWalker(content, NodeFilter.SHOW_TEXT, null, false);
+      const nodes = [];
+      while(walker.nextNode()) nodes.push(walker.currentNode);
+      nodes.forEach(node=>{
+        const parent = node.parentNode; if(parent && parent.closest('section')){
+          const txt = node.nodeValue; if(re.test(txt)){
+            total+= (txt.match(re)||[]).length;
+            const frag = document.createDocumentFragment();
+            let lastIndex=0; re.lastIndex=0; let m;
+            while((m=re.exec(txt))){
+              frag.appendChild(document.createTextNode(txt.slice(lastIndex,m.index)));
+              const mark = document.createElement('mark'); mark.textContent = m[0]; frag.appendChild(mark);
+              lastIndex = re.lastIndex;
+            }
+            frag.appendChild(document.createTextNode(txt.slice(lastIndex)));
+            parent.replaceChild(frag,node);
+            if(!first) first = parent.closest('section');
+          }
+        }
+      });
+      if(first){ first.scrollIntoView({behavior:'smooth',block:'center'}); highlightNavForSection(first.id); }
+      return total;
+    }
+
+    function highlightNavForSection(id){ document.querySelectorAll('nav .sections a').forEach(a=>{ a.classList.toggle('active', a.getAttribute('data-target')===id); }); }
+
+    sideSearch.addEventListener('keydown', (e)=>{ if(e.key === 'Enter'){ const term = sideSearch.value.trim(); const found = doSearch(term); if(found===0){ alert('Совпадений не найдено'); } }});
+    clearBtn.addEventListener('click', ()=>{ sideSearch.value=''; removeHighlights(); document.querySelectorAll('nav .sections a').forEach(x=>x.classList.remove('active')); document.querySelector('nav .sections a[data-target="intro"]').classList.add('active'); window.scrollTo({top:0,behavior:'smooth'}); });
+
+    // Side search live minor UX (debounced)
+    let deb=null; sideSearch.addEventListener('input', ()=>{ clearTimeout(deb); deb=setTimeout(()=>{ if(!sideSearch.value) { removeHighlights(); return; } doSearch(sideSearch.value.trim()); },400); });
+
+    // Active section on scroll
+    const sections = [...document.querySelectorAll('main article section')];
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(en=>{ if(en.isIntersecting){ highlightNavForSection(en.target.id); }});
+    }, {threshold:0.55});
+    sections.forEach(s=>obs.observe(s));
+
+    // Allow clicking TOC small elements
+    document.querySelectorAll('.toc a').forEach(a=>a.addEventListener('click', e=>{ e.preventDefault(); document.getElementById(a.getAttribute('href').slice(1)).scrollIntoView({behavior:'smooth'}); }));
+
+    // Accessibility: focus styles
+    document.addEventListener('keydown', e=>{ if(e.key==='/' && document.activeElement!==sideSearch){ e.preventDefault(); sideSearch.focus(); }});
   </script>
 </body>
 </html>
